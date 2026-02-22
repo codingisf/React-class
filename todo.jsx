@@ -1,26 +1,59 @@
 import React, { useState } from "react";
+import './App.css'
+
 
 function App() {
-  const [todos, setTodos] = useState(["create app", "create logo"]);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const [editindex, seteditindex] = useState(null);
 
   const handleCreate = () => {
     const task = [...todos, input];
-    console.log(task);
     setTodos(task);
     setInput("");
   };
 
-  const handleDelete = (index) => { //1
-    let task = todos.filter((value,i)=> i !=  index)
+
+
+  const handleDelete = (index) => {
+    //1
+    let task = todos.filter((value, i) => i != index);
     setTodos(task);
-     
   };
 
-  // for (i = 0 ; i<10;i++){
-// dfjgoijgods  
-// }
+  const handleAdd = () => {
+    let task = [...todos];
 
+    console.log(task);
+
+    console.log(task[editindex]);
+    
+
+
+
+
+
+    task[editindex] = input
+
+
+
+    setTodos(task);
+
+
+
+    setInput('');
+    seteditindex(null);
+  };
+
+
+  const handleUpdate = (index) => {
+    seteditindex(index);
+
+
+    let task = todos[index]; 
+    setInput(task);
+    
+  };
   return (
     <>
       <input
@@ -28,13 +61,22 @@ function App() {
         onChange={(e) => setInput(e.target.value)}
         value={input}
       />
-      <button onClick={handleCreate}>Create</button>
+      
+      {editindex === null ? (<button onClick={handleCreate}>Create</button> ) : (<button onClick={handleAdd}>Add</button>)}
 
-      <ul>
-        {todos.map(  (value, index) => (
-          <li key={index}>
-            {value}{'  -   '+index}
+      <ul className="list-disc">
+        {todos.map((value, index) => (
+          <li key={index} className="text-blue-800 font-mono text-3xl ">
+            {value}
+            {"  -   " + index}
 
+            <button
+              onClick={() => {
+                handleUpdate(index);
+              }}
+            >
+              update
+            </button>
 
             <button
               onClick={() => {
@@ -43,8 +85,6 @@ function App() {
             >
               delete
             </button>
-
-
           </li>
         ))}
       </ul>
@@ -53,3 +93,5 @@ function App() {
 }
 
 export default App;
+
+// https://screenrec.com/share/cTVS1kjWKA
