@@ -1,35 +1,33 @@
-import Button from "./Button.jsx";
-import {useState} from 'react'
+// import "./App.css";
+import Todo from './pages/Todo.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
+import ProtectionPage from './pages/ProtectionPage.jsx'
+import {Routes , Route , useNavigate} from 'react-router-dom'
 
 function App() {
-
-
-//  let a;
-
-
-
-  const [count , setCount] = useState(1);
-  // 1 + 1 = 2
-  // 2 + 1 = 3
-
-
-  // const [variable , update_function] = usestate();
-
+ 
   return (
-    <>
-      {/* 1 */}
-      {/* 2 */}
+    <Routes>
+      {/* <Todo/>
+      <LoginPage/> */}
 
-      <button
-        onClick={() => {
-          console.log(count);
+      <Route  path='/login' element={ <LoginPage/>}/>
+      <Route  path='/signup' element={ <SignupPage/>}/>
+      <Route  path='/*' element={ <ErrorPage/>}/>
 
-          setCount(count+1);
-        }}
-      >
-        Click mee
-      </button>
-    </>
+
+      <Route  path='/todo' element={
+        <ProtectionPage>
+          <Todo/>
+        </ProtectionPage>
+       }/>
+
+
+
+
+    </Routes>
   );
 }
 
